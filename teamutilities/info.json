@@ -1,0 +1,8 @@
+{
+    "author" : ["elvyn (red#4356)"],
+    "install_msg" : "Message the user will recieve when they agree to install your repository.",
+    "name" : "team utilities",
+    "short" : "this will allow team leaders to add roles to members",
+    "description" : "",
+    "tags" : ["teams, utility"]
+}
