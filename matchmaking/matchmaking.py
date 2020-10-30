@@ -33,11 +33,13 @@ class Matchmaking(commands.Cog):
         tasks = self.config.current_tasks()
         for i in tasks:
             guild = self.bot.get_guild(i["guild"])
-            channel = guild.get_channel
+            channel = guild.get_channel(i["channel"])
+            start_ts = i["start_ts"]
+            user = guild.get_member(i["user"])
     @commands.cooldown(1, 60, commands.BucketType.guild)
     @commands.command()
     async def matchmaking(self, ctx):
-        async def handle_channel(channel, guild, challenger):
+        async def handle_channel(channel, guild, challenger, start_ts):
             #creating the task
             while True:
                 current_chans = await self.config.guild(guild).now_channels()
@@ -122,7 +124,7 @@ class Matchmaking(commands.Cog):
                 "user": user.id,
             })
             await self.config.current_tasks.set(tasks)
-            await handle_channel(chan, ctx.guild, user)
+            await handle_channel(chan, ctx.guild, user, start_ts)
 
     @commands.command()
     async def closechannel(self, ctx):
